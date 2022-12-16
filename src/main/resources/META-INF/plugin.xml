@@ -1,0 +1,49 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
+    <id>com.yinye.yyedt</id>
+
+    <!-- Public plugin name should be written in Title Case.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
+    <name>YY_Erl_Dev_Tools</name>
+
+    <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
+    <vendor email="yinye1024@gmail.com" url="">隐叶</vendor>
+
+    <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
+         Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
+    <description><![CDATA[
+    erlang 开发工具集，提供日常erlang开发的常用工具，视使用情况会陆续添加新的工具。
+  ]]></description>
+
+    <!-- Product and plugin compatibility requirements.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
+    <depends>com.intellij.modules.platform</depends>
+
+    <!-- Extension points defined by the plugin.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
+    <extensions defaultExtensionNs="com.intellij">
+
+    </extensions>
+
+    <actions>
+        <group id="com.yinye.yyedt" text="erlang 开发工具集" description="开发工具集"
+               popup="true">
+            <!-- Add your actions here -->
+            <action id="CRId" class="com.yinye.yyedt.copyReplace.CRAction" text="目录/文件/内容替换" description="文件替换">
+            </action>
+            <action id="GetSetId" class="com.yinye.yyedt.getSetGener.GSGenAction"
+                    text="生成 get set 方法" description="生成 get set 方法">
+                <keyboard-shortcut first-keystroke="control alt 2" keymap="$default"/>
+            </action>
+            <action id="GRModId" class="com.yinye.yyedt.checkRepeatMod.CRModAction"
+                    text="检查重复的模块名" description="检查重复的模块名">
+            </action>
+            <action id="CDId" class="com.yinye.yyedt.checkDeps.CDepsAction"
+                    text="检查模块依赖" description="检查模块依赖">
+            </action>
+            <add-to-group group-id="ProjectViewPopupMenu" anchor="after" relative-to-action="WeighingNewGroup"/>
+        </group>
+    </actions>
+</idea-plugin>
