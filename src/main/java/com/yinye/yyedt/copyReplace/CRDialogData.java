@@ -34,9 +34,8 @@ public class CRDialogData {
      */
     private LinkedHashMap<String, String> getTokenMap(String text){
         LinkedHashMap<String, String> tokenMap = new LinkedHashMap<>();
-//        String[] split = text.split("\\r?\\n");
-        String[] split = text.split(System.lineSeparator());
-//        System.out.println(System.getProperty("line.separator").equals("\r\n"));
+        //因为是ui，所以要用"\\r?\\n" 做换行符，不能用 System.lineSeparator()
+        String[] split = text.split("\\r?\\n");
         String[] temSplit = null;
         String srcToken = null;
         String tarToken = null;
