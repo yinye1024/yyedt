@@ -5,7 +5,7 @@ import java.util.List;
 
 public class TextUtils {
 
-    public static TextUtils instance = new TextUtils();
+    private static TextUtils instance = new TextUtils();
 
     public static TextUtils getInstance() {
         return instance;

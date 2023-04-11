@@ -1,6 +1,7 @@
 package com.yinye.yyedt.checkDeps;
 
 import com.yinye.yyedt.utils.StringUtils;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,6 +9,7 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.*;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +26,8 @@ public class CDepsDialog extends JDialog {
     private JButton copyBtn;
 
     private JButton filterBtn;
+    private JButton loadFilterBtn;
+    private JButton saveFilterBtn;
     private JTextArea filterText;
     private JTextArea includeText;
 
@@ -70,6 +74,16 @@ public class CDepsDialog extends JDialog {
                 onFilter();
             }
         });
+        loadFilterBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                loadFilterText();
+            }
+        });
+        saveFilterBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                saveFilterText();
+            }
+        });
         copyBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 onCopy();
@@ -104,25 +118,23 @@ public class CDepsDialog extends JDialog {
 
     private void showResult(){
         if(this.result != null){
-            String filterText = this.filterText.getText();
-            String[] splits = filterText.split("\\r?\\n");
-            List<String> filterList = new ArrayList<>();
-            for (String splitTmp : splits) {
-                if(!StringUtils.isEmpty(splitTmp)){
-                    filterList.add(splitTmp.trim());
-                }
-            }
-
-            String includeText = this.includeText.getText();
-            String[] includeSplits = includeText.split("\\r?\\n");
-            List<String> includeList = new ArrayList<>();
-            for (String splitTmp : includeSplits) {
-                if(!StringUtils.isEmpty(splitTmp)){
-                    includeList.add(splitTmp.trim());
-                }
-            }
+            List<String> filterList = getTextList(this.filterText);
+            List<String> includeList = getTextList(this.includeText);
             this.resultText.setText(result.toText(filterList,includeList));
         }
+    }
+
+    @NotNull
+    private List<String> getTextList(JTextArea filterText) {
+        String filterTextTmp = filterText.getText();
+        String[] splits = filterTextTmp.split("\\r?\\n");
+        List<String> filterList = new ArrayList<>();
+        for (String splitTmp : splits) {
+            if(!StringUtils.isEmpty(splitTmp)){
+                filterList.add(splitTmp.trim());
+            }
+        }
+        return filterList;
     }
 
     private void onCancel() {
@@ -130,6 +142,21 @@ public class CDepsDialog extends JDialog {
     }
     private void onFilter() {
         showResult();
+    }
+    private void loadFilterText() {
+        List<String> list = CDepsMgr.getInstance().loadFilter();
+        if(list != null){
+            this.filterText.setText(list.get(0));
+            this.includeText.setText(list.get(1));
+        }
+    }
+
+    private void saveFilterText(){
+        try {
+            CDepsMgr.getInstance().saveFilter(this.filterText.getText(),this.includeText.getText());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void onCopy() {

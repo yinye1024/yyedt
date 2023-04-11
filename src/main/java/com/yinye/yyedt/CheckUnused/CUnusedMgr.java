@@ -2,9 +2,12 @@ package com.yinye.yyedt.CheckUnused;
 
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Messages;
+import com.yinye.yyedt.CheckUnused.bs.CUnusedDao;
 import com.yinye.yyedt.CheckUnused.bs.CUnusedModInfoHelper;
+import com.yinye.yyedt.utils.PluginFileDao;
 
 import java.io.IOException;
+import java.util.List;
 
 public class CUnusedMgr {
 
@@ -27,6 +30,14 @@ public class CUnusedMgr {
         return CUnusedModInfoHelper.getInstance().checkUnused(oriDirPath,destDirPath);
     }
 
+    public List<String> loadFilter(){
+        String workPath = this.project.getBasePath();
+        return CUnusedDao.getInstance().loadFilter(workPath);
+    }
+    public void saveFilter(String filterText,String includeText) throws IOException {
+        String workPath = this.project.getBasePath();
+        CUnusedDao.getInstance().saveFilter(workPath,filterText,includeText);
+    }
 
 }
 

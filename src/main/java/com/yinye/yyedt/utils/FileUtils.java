@@ -8,6 +8,7 @@ package com.yinye.yyedt.utils;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
+import com.intellij.openapi.project.Project;
 
 import java.io.*;
 import java.util.*;
@@ -60,6 +61,14 @@ public class FileUtils {
 
 			}
 		}
+	}
+
+	public static File newWorkspaceDir(String workPath,String dirName){
+		File wsTmp = new File(workPath,".yyedt");
+		createDir(wsTmp);
+		File targetTmp = new File(wsTmp,dirName);
+		createDir(targetTmp);
+		return targetTmp;
 	}
 
 	public static File createDir(String path){
@@ -298,6 +307,7 @@ public class FileUtils {
 		String absolutePath = targetFile.getAbsolutePath();
 		return StringUtils.substringAfterLast(absolutePath, "\\");
 	}
+
 
 	public static void main(String[] args) throws Exception {
 		File file1 = new File("D:\\bstest\\ErlangPlugin\\src\\com\\myerlangplugin\\PluginHelper.java");
