@@ -1,6 +1,7 @@
 package com.yinye.yyedt.checkDeps;
 
 import com.yinye.yyedt.utils.StringUtils;
+import com.yinye.yyedt.utils.TextUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,20 +18,10 @@ public class CDepsResult {
         return instance;
     }
 
-    public String toText(List<String> filterList){
-        List<String> depModFilterList = doFilter(this.depModList,filterList);
-        List<String> refedModFilterList = doFilter(this.refedModList,filterList);
+    public String toText(List<String> filterList,List<String>  includeList){
+        List<String> depModFilterList = TextUtils.getInstance().doTextListFilter(this.depModList,filterList,includeList);
+        List<String> refedModFilterList = TextUtils.getInstance().doTextListFilter(this.refedModList,filterList,includeList);
         return  buildResult(depModFilterList,refedModFilterList);
-    }
-
-    private List<String> doFilter(List<String> modList, List<String> filterList) {
-        List<String> newList = new ArrayList<>();
-        for (String modTmp : modList) {
-            if(!filterList.contains(modTmp)){
-                newList.add(modTmp);
-            }
-        }
-        return newList;
     }
 
     private String buildResult(List<String> depModList, List<String> refedModList) {

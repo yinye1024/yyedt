@@ -1,17 +1,19 @@
-package com.yinye.yyedt.checkDeps;
+package com.yinye.yyedt.CheckUnused;
+
 
 import com.yinye.yyedt.utils.StringUtils;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.StringSelection;
 import java.awt.event.*;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CDepsDialog extends JDialog {
+import java.awt.datatransfer.StringSelection;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+
+public class CUnusedDialog extends JDialog {
     private JPanel contentPane;
 
     private JFormattedTextField destDir;
@@ -22,7 +24,6 @@ public class CDepsDialog extends JDialog {
     private JButton cancelBtn;
 
     private JButton copyBtn;
-
     private JButton filterBtn;
     private JTextArea filterText;
     private JTextArea includeText;
@@ -30,9 +31,9 @@ public class CDepsDialog extends JDialog {
     private JTextArea resultText;
 
     private DialogCallBack mCallBack;
-    private CDepsResult result;
+    private CUnusedResult result;
 
-    public CDepsDialog(DialogCallBack mCallBack, File selectDir) {
+    public CUnusedDialog(DialogCallBack mCallBack, File selectDir) {
         this.mCallBack = mCallBack;
         setSize(800,400); // 设置大小
         setContentPane(contentPane);
@@ -95,7 +96,7 @@ public class CDepsDialog extends JDialog {
 
     private void onCheckDeps() {
         if (null != mCallBack){
-            CDepsDialogData dialogData = new CDepsDialogData(this.oriDir.getText(),this.destDir.getText());
+            CUnusedDialogData dialogData = new CUnusedDialogData(this.oriDir.getText(),this.destDir.getText());
             this.result = this.mCallBack.checkDeps(dialogData);
             this.showResult();
 
@@ -104,8 +105,9 @@ public class CDepsDialog extends JDialog {
 
     private void showResult(){
         if(this.result != null){
-            String filterText = this.filterText.getText();
-            String[] splits = filterText.split("\\r?\\n");
+            String filterTextTmp = this.filterText.getText();
+
+            String[] splits = filterTextTmp.split("\\r?\\n");
             List<String> filterList = new ArrayList<>();
             for (String splitTmp : splits) {
                 if(!StringUtils.isEmpty(splitTmp)){
@@ -113,10 +115,10 @@ public class CDepsDialog extends JDialog {
                 }
             }
 
-            String includeText = this.includeText.getText();
-            String[] includeSplits = includeText.split("\\r?\\n");
+            String includeTextTmp = this.includeText.getText();
+            String[] splits2 = includeTextTmp.split("\\r?\\n");
             List<String> includeList = new ArrayList<>();
-            for (String splitTmp : includeSplits) {
+            for (String splitTmp : splits2) {
                 if(!StringUtils.isEmpty(splitTmp)){
                     includeList.add(splitTmp.trim());
                 }
@@ -131,7 +133,6 @@ public class CDepsDialog extends JDialog {
     private void onFilter() {
         showResult();
     }
-
     private void onCopy() {
         String text = this.resultText.getText();
         StringSelection stringSelection = new StringSelection(text);
@@ -143,7 +144,7 @@ public class CDepsDialog extends JDialog {
         final JFileChooser chooser=new JFileChooser();
         chooser.setCurrentDirectory(curFile);
         chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        int returnValue=chooser.showOpenDialog(CDepsDialog.this);
+        int returnValue=chooser.showOpenDialog(CUnusedDialog.this);
         if (returnValue==JFileChooser.APPROVE_OPTION) {
             File file=chooser.getSelectedFile();
             oriDir.setText(file.getAbsolutePath());
@@ -153,7 +154,7 @@ public class CDepsDialog extends JDialog {
         final JFileChooser chooser=new JFileChooser();
         chooser.setCurrentDirectory(curFile);
         chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        int returnValue=chooser.showOpenDialog(CDepsDialog.this);
+        int returnValue=chooser.showOpenDialog(CUnusedDialog.this);
         if (returnValue==JFileChooser.APPROVE_OPTION) {
             File file=chooser.getSelectedFile();
             destDir.setText(file.getAbsolutePath());
@@ -161,7 +162,7 @@ public class CDepsDialog extends JDialog {
     }
 
     public interface DialogCallBack{
-        CDepsResult checkDeps(CDepsDialogData dialogData);
+        CUnusedResult checkDeps(CUnusedDialogData dialogData);
     }
 
 }

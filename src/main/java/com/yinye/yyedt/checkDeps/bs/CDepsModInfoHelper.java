@@ -88,12 +88,6 @@ public class CDepsModInfoHelper {
         return modInfoMap;
     }
 
-    public static void main(String[] args) throws IOException {
-        String oriDirPath = "D:\\allen_test\\dev_tools\\code_gen_test\\codeGenTmpDir\\input\\yymg\\cursor";
-        String destDirPath = "D:\\allen_test\\dev_tools\\code_gen_test\\codeGenTmpDir\\input\\yymg";
-        CDepsResult result = CDepsModInfoHelper.getInstance().checkDeps(oriDirPath,destDirPath);
-        System.out.print(result.toText(new ArrayList<>()));
-    }
 }
 
 

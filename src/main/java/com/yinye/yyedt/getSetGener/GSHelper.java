@@ -157,7 +157,7 @@ public class GSHelper {
         }
         if (isGet) {
             return str + "get_" + field + "(ItemMap) ->\n" +
-                    "  utils_map:get_value(" + field + ", ItemMap).\n\n";
+                    "  yyu_map:get_value(" + field + ", ItemMap).\n\n";
         } else {
             return str + "get_" + field + "(ItemMap) ->\n" +
                     "  yyu_map:get_value(" + field + ", ItemMap).\n\n" +
