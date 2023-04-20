@@ -74,12 +74,12 @@ public class CRMgr {
 //                System.getProperty("line.separator") +
 //                "目标目录:"+
 //                System.getProperty("line.separator")+outputPath);
-//        showEventLog("源目录:"
-//                +System.getProperty("line.separator")+
-//                filePath +
-//                System.getProperty("line.separator") +
-//                "目标目录:"+
-//                System.getProperty("line.separator")+outputPath);
+        showEventLog("源目录:"
+                +System.getProperty("line.separator")+
+                filePath +
+                System.getProperty("line.separator") +
+                "目标目录:"+
+                System.getProperty("line.separator")+outputPath);
         FileUtils.cmdOpenFolder(outputPath);
     }
 

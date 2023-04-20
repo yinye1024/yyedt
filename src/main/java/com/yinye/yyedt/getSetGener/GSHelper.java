@@ -156,13 +156,13 @@ public class GSHelper {
             str = "priv_";
         }
         if (isGet) {
-            return str + "get_" + field + "(ItemMap) ->\n" +
-                    "  yyu_map:get_value(" + field + ", ItemMap).\n\n";
+            return str + "get_" + field + "(SelfMap) ->\n" +
+                    "  yyu_map:get_value(" + field + ", SelfMap).\n\n";
         } else {
-            return str + "get_" + field + "(ItemMap) ->\n" +
-                    "  yyu_map:get_value(" + field + ", ItemMap).\n\n" +
-                    str + "set_" + field + "(Value, ItemMap) ->\n" +
-                    "  yyu_map:put_value(" + field + ", Value, ItemMap).\n\n";
+            return str + "get_" + field + "(SelfMap) ->\n" +
+                    "  yyu_map:get_value(" + field + ", SelfMap).\n\n" +
+                    str + "set_" + field + "(Value, SelfMap) ->\n" +
+                    "  yyu_map:put_value(" + field + ", Value, SelfMap).\n\n";
         }
     }
 }
