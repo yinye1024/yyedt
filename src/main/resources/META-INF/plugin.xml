@@ -13,9 +13,7 @@
     <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
          Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
-    <description><![CDATA[
-    erlang 开发工具集，提供日常erlang开发的常用工具，视使用情况会陆续添加新的工具。
-  ]]></description>
+    <description><![CDATA[Erlang Development Toolkit, providing commonly used tools for daily Erlang development. New tools will be added as needed.]]></description>
 
     <!-- Product and plugin compatibility requirements.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
