@@ -3,7 +3,8 @@
 erlang 开发工具集，提供日常erlang开发的常用工具，视使用情况会陆续添加新的工具
 
 ### 使用
-   
+   把 rel/yyedt-1.0-SNAPSHOT.jar 本地安装到 IntelliJ IDEA 。
+   或者自己build，是 IntelliJ IDEA 标准的 gradle 插件项目。
 
 
 ### 有哪些功能
